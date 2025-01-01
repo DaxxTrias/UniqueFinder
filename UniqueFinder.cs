@@ -1,24 +1,25 @@
 ﻿using System.Collections;
 using System.Diagnostics;
-using ExileCore;
-using ExileCore.PoEMemory;
-using ExileCore.PoEMemory.Components;
-using ExileCore.PoEMemory.Elements;
-using ExileCore.PoEMemory.MemoryObjects;
-using ExileCore.Shared;
-using ExileCore.Shared.Enums;
+using ExileCore2;
+using ExileCore2.PoEMemory;
+using ExileCore2.PoEMemory.Components;
+using ExileCore2.PoEMemory.Elements;
+using ExileCore2.PoEMemory.MemoryObjects;
+using ExileCore2.Shared;
+using ExileCore2.Shared.Enums;
 using ImGuiNET;
 
 namespace UniqueFinder;
 
 // ReSharper disable once UnusedType.Global
 // ReSharper disable once ClassNeverInstantiated.Global
+
 public class UniqueFinder : BaseSettingsPlugin<UniqueFinderSettings>
 {
     private readonly Stopwatch _blinkTimer = Stopwatch.StartNew();
     private HashSet<GroundItemInstance> _filteredLabelsOnGround = [];
     private bool _blinkTrigger;
-    private static readonly WaitTime Wait1Sec = new(1000);
+    //private static readonly WaitTime Wait1Sec = new(1000);
     private readonly PanelRenderer _panelRenderer;
 
     public UniqueFinder()
@@ -41,17 +42,18 @@ public class UniqueFinder : BaseSettingsPlugin<UniqueFinderSettings>
             Settings.UniqueNames.Add("Headhunter");
         }
 
-        Core.ParallelRunner.Run(ParseThread(), this, $"Coroutine-{nameof(UniqueFinder)}");
+        ParseThread();
+        //Core.ParallelRunner.Run(ParseThread(), this, $"Coroutine-{nameof(UniqueFinder)}");
 
         return true;
     }
 
-    private IEnumerator ParseThread()
+    private void ParseThread()
     {
         while (true)
         {
-            if (LabelsOnGround.Count == 0) yield return Wait1Sec;
-            if (GameController?.Files is null) yield return Wait1Sec;
+            if (LabelsOnGround.Count == 0) return;
+            if (GameController?.Files is null) return;
 
             var newFilteredLabelsOnGround = new HashSet<GroundItemInstance>();
             foreach (var labelOnGround in LabelsOnGround)
@@ -73,7 +75,7 @@ public class UniqueFinder : BaseSettingsPlugin<UniqueFinderSettings>
 
             _filteredLabelsOnGround = newFilteredLabelsOnGround;
 
-            yield return Wait1Sec;
+            return;
         }
         // ReSharper disable once IteratorNeverReturns
     }
@@ -82,7 +84,7 @@ public class UniqueFinder : BaseSettingsPlugin<UniqueFinderSettings>
     {
         if (InGameUi is null) return;
         if (InGameUi.FullscreenPanels.Any(p => p.IsVisible)) return;
-        if (GameController.Player?.GridPosNum is null) return;
+        if (GameController.Player?.GridPos is null) return;
 
         if (_blinkTimer.ElapsedMilliseconds >= Settings.Common.BlinkTime)
         {
@@ -101,7 +103,7 @@ public class UniqueFinder : BaseSettingsPlugin<UniqueFinderSettings>
             if (Settings.LargeMap.Trace && (!Settings.LargeMap.Blink || _blinkTrigger) && LargeMap is not null && LargeMap.IsVisible)
             {
                 var itemLocation = GameController.IngameState.Data.GetGridMapScreenPosition(item.Location);
-                var playerLocation = GameController.IngameState.Data.GetGridMapScreenPosition(GameController.Player.GridPosNum);
+                var playerLocation = GameController.IngameState.Data.GetGridMapScreenPosition(GameController.Player.GridPos);
                 Graphics.DrawLine(itemLocation, playerLocation, Settings.LargeMap.Thickness, Settings.LargeMap.Color);
             }
 

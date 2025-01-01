@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ExileCore.Shared.Attributes;
-using ExileCore.Shared.Interfaces;
-using ExileCore.Shared.Nodes;
-using SharpDX;
+using System.Drawing;
+using ExileCore2.Shared.Attributes;
+using ExileCore2.Shared.Interfaces;
+using ExileCore2.Shared.Nodes;
 
 // ReSharper disable FieldCanBeMadeReadOnly.Global
 
@@ -39,7 +39,7 @@ public class LargeMap
 {
     public ToggleNode Trace { get; set; } = new(true);
     public ToggleNode Blink { get; set; } = new(true);
-    public ColorNode Color { get; set; } = new(new Color(214, 0, 255, 255));
+    public ColorNode Color { get; set; } = System.Drawing.Color.FromArgb(214, 0, 255);
     public RangeNode<float> Thickness { get; set; } = new(3f, 1f, 10f);
 }
 

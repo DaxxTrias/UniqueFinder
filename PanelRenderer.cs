@@ -1,8 +1,8 @@
-﻿using ExileCore.Shared.Enums;
-using ExileCore.Shared.Helpers;
-using SharpDX;
-using static ExileCore.Shared.Enums.FontAlign;
+﻿using ExileCore2.Shared.Enums;
+using ExileCore2.Shared.Helpers;
+using static ExileCore2.Shared.Enums.FontAlign;
 using Vector2 = System.Numerics.Vector2;
+using RectangleF = ExileCore2.Shared.RectangleF;
 
 namespace UniqueFinder;
 
@@ -45,7 +45,7 @@ public class PanelRenderer(UniqueFinder plugin)
                 _fontAlign = Center;
                 break;
             case EPanelAlign.Right:
-                _pos = plugin.GameController.UnderPanel.StartDrawPoint.ToVector2Num();
+                _pos = plugin.GameController.Game.IngameState.IngameUi.GetChildAtIndex(6).GetClientRectCache.BottomRight;
                 _pos.X -= _margin;
                 _fontAlign = Right;
                 // In case of missing UI offsets...
