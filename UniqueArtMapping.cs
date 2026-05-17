@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using ExileCore;
+using System.Reflection;
+using ExileCore2;
 using Newtonsoft.Json;
 
 namespace UniqueFinder;

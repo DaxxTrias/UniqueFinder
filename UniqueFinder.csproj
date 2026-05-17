@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net8.0-windows</TargetFramework>
         <OutputType>Library</OutputType>
         <PlatformTarget>x64</PlatformTarget>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>14</LangVersion>
         <DebugType>embedded</DebugType>
         <EmbedAllSources>true</EmbedAllSources>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>true</Nullable>
+        <Nullable>enable</Nullable>
        <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
     <ItemGroup>
