@@ -3,7 +3,7 @@
         <TargetFramework>net8.0-windows</TargetFramework>
         <OutputType>Library</OutputType>
         <PlatformTarget>x64</PlatformTarget>
-        <LangVersion>14</LangVersion>
+        <LangVersion>12</LangVersion>
         <DebugType>embedded</DebugType>
         <EmbedAllSources>true</EmbedAllSources>
         <ImplicitUsings>enable</ImplicitUsings>
