@@ -70,7 +70,7 @@ public class UniqueFinder : BaseSettingsPlugin<UniqueFinderSettings>
                 if (itemName is null) continue;
                 var namesCopy = new List<string>(Settings.UniqueNames.Where(n => n.Trim().Length > 0));
                 if (!namesCopy.Any(n => itemName.Contains(n, StringComparison.OrdinalIgnoreCase))) continue;
-                newFilteredLabelsOnGround.Add(new GroundItemInstance(labelOnGround, worldItem, itemMods, renderItem, itemName, GameController!));
+                newFilteredLabelsOnGround.Add(new GroundItemInstance(labelOnGround, itemName, GameController!));
             }
 
             _filteredLabelsOnGround = newFilteredLabelsOnGround;
